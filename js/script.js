@@ -2,15 +2,13 @@
  * Created by gduvaux on 15/07/2014.
  */
 
-
-
-var wngPlugin = new jQuery.wng();
-
 var randRange = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 function Village(){
+
+    this.name = wngPlugin.generate({});
     this.population = [];
 
     this.pMen = [];
@@ -63,16 +61,14 @@ function addPop(human){
     savePop(human);
 }
 
-function displayPop(village){
-    village.html("");
+function displayPop(){
     var length = population.length;
-    for(var i = 0, human;i<length;i++){
-        human = population[i];
+    var human = population[length-1];
+    if(length > 0){
         if(human instanceof Man)
-            village.append('<i id="' + human.UIN + '" class="fa fa-male person"></i>');
+            divVillage.append('<i id="' + human.UIN + '" class="fa fa-male person"></i>');
         else
-            village.append('<i id="' + human.UIN + '" class="fa fa-female person"></i>');
-
+            divVillage.append('<i id="' + human.UIN + '" class="fa fa-female person"></i>');
     }
 }
 
@@ -93,17 +89,16 @@ function savePop(human){
 function loadPop(){
     var dataPop = database.query("people");
     var length = dataPop.length;
-    var pop = [];
     for(var i = 0;i<length;i++){
         var human = dataPop[i] ;
         if(human.sex === "M"){
-            pop.push(new Man(human.name,human.age,human.strength,human.UIN));
+            population.push(new Man(human.name,human.age,human.strength,human.UIN));
         }else{
-            pop.push(new Woman(human.name,human.age,human.strength,human.UIN));
+            population.push(new Woman(human.name,human.age,human.strength,human.UIN));
         }
         village.registre.push(human.UIN);
+        displayPop();
     }
-    return pop;
 }
 
 
@@ -120,35 +115,38 @@ function createSave(){
 /*
  Main
  */
+var wngPlugin = new jQuery.wng();
+var divVillage = null;
 var database = createSave();
 var village = new Village();
-village.population = loadPop();
 var population = village.population;
 
 
 jQuery(document).ready(function($){
+    divVillage = $("#village");
 
-    displayPop($("#village"));
+    loadPop();
+
     var godMode = false;
     var humanShowed = null;
 
     $("#addMen").click(function(){
         addPop(new Man());
-        displayPop($("#village"));
+        displayPop();
         //console.log(village.population);
     });
     $("#addWomen").click(function(){
         addPop(new Woman());
-        displayPop($("#village"));
+        displayPop();
         //console.log(population);
     });
     $("#genocide").click(function(){
         village.genocide();
-        displayPop($("#village"));
+        divVillage.html("");
     });
     $("#nuke").click(function(){
         village.genocide();
-        displayPop($("#village"));
+        divVillage.html("");
     });
     $("#god").click(function(){
         if(!godMode){
@@ -160,12 +158,13 @@ jQuery(document).ready(function($){
         }
     });
     $(".person").click(function(){
-        var UIN = this.id, length = population.length, i = 0, human;
+        var UIN = this.id, i = 0, human;
         while(!human){
             human = population[i].UIN == UIN ? population[i] : undefined ;
             i++;
         }
         humanShowed = human;
+        $("input#name").val(human.name);
         $("input#age").val(human.age);
         $("input#strength").val(human.strength);
     });
@@ -175,10 +174,18 @@ jQuery(document).ready(function($){
         switch (id){
             case "age":
                 population[i].age = this.value;
-            break;
+                break;
             case "strength":
                 population[i].strength = this.value;
-            break;
+                break;
+            case "name":
+                population[i].name = this.value;
+                break;
         }
     });
+    $("button").click(function(){
+        $("input#population").val(village.population.length);
+    });
+    $("input#nameV").val(village.name);
+    $("input#population").val(village.population.length);
 });

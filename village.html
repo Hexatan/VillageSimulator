@@ -14,17 +14,29 @@
 <div id="game">
     <div id="village"></div>
     <div id="info-village" class="info">
-        <i class="fa fa-home"></i>
+        <i class="fa fa-home"></i><br>
+        <label>
+            <span>Name :</span>
+            <input id="nameV" class="val" type="text" disabled>
+        </label><br>
+        <label>
+            <span>Population :</span>
+            <input id="population" class="val" type="number" disabled>
+        </label><br>
     </div>
     <div id="info-personne" class="info">
         <i class="fa fa-male"></i><br>
         <label>
-            <span>age :</span>
-            <input id="age" class="val" type="number" disabled>
+            <span>Name :</span>
+            <input id="name" class="val" type="text" disabled>
         </label><br>
         <label>
-            <span>strength :</span>
-            <input id="strength" class="val" type="number" disabled>
+            <span>Age :</span>
+            <input id="age" class="val" type="number" min="0" disabled>
+        </label><br>
+        <label>
+            <span>Strength :</span>
+            <input id="strength" class="val" type="number" min="0" max="100" disabled>
         </label>
     </div>
     <div id="control" class="info">

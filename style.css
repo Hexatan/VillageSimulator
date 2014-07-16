@@ -8,6 +8,7 @@ body{
     width: 100%;
     background: aliceblue;
     top: 0;
+    overflow: auto;
 }
 
 #game {
@@ -31,12 +32,12 @@ body{
 }
 
 #info-village {
-    width: 20%;
+    width: 30%;
     border-right: 1px solid;
 }
 
 #info-personne {
-    width: 59%;
+    width: 49%;
     border-right: 1px solid;
 }
 
