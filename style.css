@@ -1,0 +1,62 @@
+body{
+    margin: 0;
+    background-color: #efefef;
+}
+
+#village {
+    height: 80%;
+    width: 100%;
+    background: aliceblue;
+    top: 0;
+}
+
+#game {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    margin: 5%;
+    box-shadow: 1px 1px 5px rgb(138, 138, 138);
+}
+
+.fa{
+    font-size: 32px;
+}
+
+.info {
+    display: inline-table;
+    height: 20%;
+}
+
+#info-village {
+    width: 20%;
+    border-right: 1px solid;
+}
+
+#info-personne {
+    width: 59%;
+    border-right: 1px solid;
+}
+
+#control{
+    width: 19%;
+}
+
+.control {
+    border: none;
+    padding-left: 5px;
+    box-shadow: 1px 1px 5px rgb(138, 138, 138);
+    background: cornsilk;
+    display: inline-block;
+    width: 100%;
+}
+
+.control:active{
+    box-shadow: 1px 1px 5px rgb(138, 138, 138) inset;
+}
+
+.control:focus{
+    outline: none;
+}
