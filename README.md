@@ -6,16 +6,20 @@ A village simulator in javascript with localstorage
 
 TODO:
 
-*Show people and village informations in lower frame
+* Show people and village informations in lower frame
 
-*Year evolution
+* Year evolution
 
-*Ressource management
+* Ressource management
 
-*Other thinks...
+* Other thinks...
 
+
+Copyright
+---------
 
 In these little experiment I use :
 
-*[localstorageDB by knadh](https://github.com/knadh/localStorageDB)
-*[Weird Name Generator jQuery Plugin by ghwilson4456](https://github.com/ghwilson4456/Weird-Name-Generator-jQuery-Plugin)
+* [localstorageDB by knadh](https://github.com/knadh/localStorageDB)
+
+* [Weird Name Generator jQuery Plugin by ghwilson4456](https://github.com/ghwilson4456/Weird-Name-Generator-jQuery-Plugin)
