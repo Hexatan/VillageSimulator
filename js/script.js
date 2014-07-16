@@ -2,6 +2,8 @@
  * Created by gduvaux on 15/07/2014.
  */
 
+
+
 var wngPlugin = new jQuery.wng();
 
 var randRange = function(min, max) {
@@ -127,6 +129,8 @@ var population = village.population;
 jQuery(document).ready(function($){
 
     displayPop($("#village"));
+    var godMode = false;
+    var humanShowed = null;
 
     $("#addMen").click(function(){
         addPop(new Man());
@@ -146,7 +150,35 @@ jQuery(document).ready(function($){
         village.genocide();
         displayPop($("#village"));
     });
+    $("#god").click(function(){
+        if(!godMode){
+            $("input.val").prop({disabled : false});
+            godMode = true;
+        }else{
+            $("input.val").prop({disabled : true});
+            godMode = false;
+        }
+    });
     $(".person").click(function(){
-
+        var UIN = this.id, length = population.length, i = 0, human;
+        while(!human){
+            human = population[i].UIN == UIN ? population[i] : undefined ;
+            i++;
+        }
+        humanShowed = human;
+        $("input#age").val(human.age);
+        $("input#strength").val(human.strength);
+    });
+    $("input.val").change(function(){
+        var i = population.indexOf(humanShowed);
+        var id = this.id;
+        switch (id){
+            case "age":
+                population[i].age = this.value;
+            break;
+            case "strength":
+                population[i].strength = this.value;
+            break;
+        }
     });
 });

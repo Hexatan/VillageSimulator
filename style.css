@@ -60,3 +60,14 @@ body{
 .control:focus{
     outline: none;
 }
+
+input{
+    box-shadow: 1px 1px 5px rgb(138, 138, 138) inset;
+    border: none;
+}
+
+input:disabled{
+    box-shadow: none;
+    background: #efefef;
+    border: none;
+}
