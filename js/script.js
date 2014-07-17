@@ -42,6 +42,7 @@ function Human(name,age,strength,UIN){
 
     this.ageing = function(){
         this.age++;
+        savePop(this);
     };
 }
 
@@ -80,6 +81,14 @@ function displayPop(){
     }
 }
 
+function nextYear(){
+    var length = population.length;
+    for(var i = 0,human;i<length;i++){
+        human = population[i];
+        human.ageing();
+    }
+}
+
 function savePop(human){
     if(!human){
         database.deleteRows("people");
@@ -89,7 +98,7 @@ function savePop(human){
             sex = "M";
         else
             sex = "W";
-        database.insert("people",{UIN : human.UIN, age : human.age, strength : human.strength, name : human.name, sex : sex});
+        database.insertOrUpdate("people", {UIN : human.UIN}, {UIN : human.UIN, age : human.age, strength : human.strength, name : human.name, sex : sex});
     }
     database.commit();
 }
@@ -150,6 +159,9 @@ jQuery(document).ready(function($){
         displayPop();
         //console.log(population);
     });
+    $("#nextYear").click(function(){
+        nextYear();
+    });
     $("#genocide").click(function(){
         village.genocide();
         divVillage.html("");
@@ -196,6 +208,7 @@ jQuery(document).ready(function($){
     });
     $("button").click(function(){
         $("input#population").val(village.population.length);
+        $("input#age").val(humanShowed.age);
     });
     $("input#nameV").val(village.name);
     $("input#population").val(village.population.length);
