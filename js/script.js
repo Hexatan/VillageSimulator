@@ -6,9 +6,17 @@ var randRange = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-function Village(){
-
-    this.name = wngPlugin.generate({});
+function Village(name){
+    if(!name){
+        var result = database.query("info", {key: "villageName"});
+        if(result.length>0){
+            this.name = result[0].value;
+        }else{
+            this.name = wngPlugin.generate({});
+            database.insert("info",{key : "villageName", value : this.name});
+            database.commit();
+        }
+    }
     this.population = [];
 
     this.pMen = [];
@@ -23,7 +31,7 @@ function Village(){
             this.registre.pop();
         }
         savePop();
-    }
+    };
 }
 
 function Human(name,age,strength,UIN){
@@ -34,7 +42,7 @@ function Human(name,age,strength,UIN){
 
     this.ageing = function(){
         this.age++;
-    }
+    };
 }
 
 function Man(name,age,strength,UIN){
@@ -107,6 +115,7 @@ function createSave(){
 
     if(dataBase.isNew()){
         dataBase.createTable("people",["UIN","age","strength","name","sex"]);
+        dataBase.createTable("info",["key","value"]);
         dataBase.commit();
     }
     return dataBase;
@@ -115,6 +124,7 @@ function createSave(){
 /*
  Main
  */
+
 var wngPlugin = new jQuery.wng();
 var divVillage = null;
 var database = createSave();
@@ -147,6 +157,7 @@ jQuery(document).ready(function($){
     $("#nuke").click(function(){
         village.genocide();
         divVillage.html("");
+        localStorage.clear();
     });
     $("#god").click(function(){
         if(!godMode){
